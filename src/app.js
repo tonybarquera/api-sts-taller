@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
   res.send("Welcome to server");
 });
 
-app.get('/test-connection', async (req, res) => {
+app.get('/test-connection-sequelize', async (req, res) => {
   try {
     await sequelize.authenticate();
     console.log('Connected');
