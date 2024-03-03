@@ -10,41 +10,33 @@ const UsuarioSchema = {
     primaryKey: true,
     type: DataTypes.INTEGER
   },
-  use_correo: {
+  usu_correo: {
     allowNull: false,
     unique: true,
     type: DataTypes.STRING
   },
-  use_password: {
+  usu_password: {
     allowNull: false,
     type: DataTypes.STRING
   },
-  use_username: {
+  usu_username: {
     allowNull: false,
     type: DataTypes.STRING
   },
-  use_telefono: {
+  usu_telefono: {
     allowNull: false,
     type: DataTypes.STRING
   },
-  use_admin: {
+  usu_admin: {
     allowNull: false,
     defaultValue: 0,
     type: DataTypes.BOOLEAN
-  },
-  use_cve_casa: {
-    allowNull: true,
-    type: DataTypes.INTEGER,
-    references: {
-      model: CASA_TABLE,
-      key: 'cas_cve_casa'
-    }
   }
 }
 
 class Usuario extends Model {
   static associate(models) {
-    this.belongsTo(models.Casa, { foreignKey: 'usu_cve_casa' });
+    this.belongsToMany(models.Casa, { through: models.Grupo });
   }
 
   static config(sequelize) {

@@ -7,9 +7,7 @@ class CasaService {
 
   async create(data) {
     const newCasa = await models.Casa.create(data);
-    console.log(newCasa);
-    return data;
-    // return newCasa;
+    return newCasa;
   }
 }
 

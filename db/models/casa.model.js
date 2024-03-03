@@ -17,10 +17,7 @@ const CasaSchema = {
 
 class Casa extends Model {
   static associate(models) {
-    this.hasMany(models.Usuario, {
-      as: 'usuario',
-      foreignKey: 'usu_cve_casa'
-    })
+    this.belongsToMany(models.Usuario, { through: models.Grupo });
   }
 
   static config(sequelize) {
