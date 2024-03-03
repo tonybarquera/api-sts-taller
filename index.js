@@ -3,6 +3,7 @@ const cors = require('cors');
 const routerApi = require('./routes/app.js');
 
 const { PORT } = require('./config/config.js');
+const { boomErrorHandler } = require('./middlewares/error.handler.js');
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.get('/', (req, res) => {
 });
 
 routerApi(app);
+
+app.use(boomErrorHandler)
 
 app.listen(PORT, () => {
   console.log(`Server in port ${PORT}`);
