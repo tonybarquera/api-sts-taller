@@ -5,6 +5,11 @@ class CasaService {
 
   }
 
+  async findById(data) {
+    const casa = await models.Casa.findByPk(data);
+    return casa;
+  }
+
   async create(data) {
     const newCasa = await models.Casa.create(data);
     return newCasa;

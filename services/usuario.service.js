@@ -18,6 +18,11 @@ class UsuarioService {
     return usuarios;
   }
 
+  async findById(data) {
+    const usuario = await models.Usuario.findByPk(data);
+    return usuario;
+  }
+
   async getById(data) {
     const usuario = await models.Usuario.findOne({
       where: {
