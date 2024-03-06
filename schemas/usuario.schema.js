@@ -6,7 +6,6 @@ const usu_correo = Joi.string().min(5).max(60);
 const usu_password = Joi.string().min(8).max(60);
 const usu_username = Joi.string().min(5).max(25);
 const usu_telefono = Joi.string().min(10).max(10);
-const usu_admin = Joi.boolean();
 const usu_cve_casa = Joi.number().integer();
 
 // Validations
@@ -17,8 +16,13 @@ const createUsuarioSchema = Joi.object({
   usu_telefono: usu_telefono.required()
 });
 
+// TODO cambiar findUsuarioById por validUsuarioIDSchema
 const findUsuarioById = Joi.object({
   usu_cve_usuario: usu_cve_usuario.required()
 });
 
-module.exports = { createUsuarioSchema, findUsuarioById };
+const validUsuarioIDSchema = Joi.object({
+  usu_cve_usuario: usu_cve_usuario.required()
+})
+
+module.exports = { createUsuarioSchema, findUsuarioById, validUsuarioIDSchema };

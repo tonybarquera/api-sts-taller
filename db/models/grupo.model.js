@@ -12,6 +12,11 @@ const GrupoSchema = {
     allowNull: false,
     primaryKey: true,
     type: DataTypes.INTEGER
+  },
+  gru_admin: {
+    allowNull: false,
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
   }
 };
 

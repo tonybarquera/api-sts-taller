@@ -13,9 +13,11 @@ router.post('/',
   passport.authenticate('jwt', { session: false }),
   validatorHandler(createCasaSchema, 'body'),
   async(req, res, next) => {
+    const usu_cve_usuario = req.user.sub;
+
     try {
       const body = req.body;
-      const newCasa = await service.create(body);
+      const newCasa = await service.create(body, usu_cve_usuario);
       res.status(201).json(newCasa);
     } catch(error) {
       next(error);

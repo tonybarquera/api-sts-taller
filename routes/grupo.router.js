@@ -3,6 +3,8 @@ const passport = require('passport');
 const boom = require('boom');
 const validatorHandler = require('./../middlewares/validator.handler.js');
 const { createGrupo } = require('./../schemas/grupo.schema.js');
+const { validCasaIDSchema } = require('./../schemas/casa.schema.js');
+const { validUsuarioIDSchema } = require('./../schemas/usuario.schema.js');
 
 const GrupoService = require('./../services/grupo.service.js');
 const CasaService = require('./../services/casa.service.js');
@@ -19,6 +21,7 @@ router.post('/',
   validatorHandler(createGrupo, 'body'),
   async (req, res, next) => {
     try {
+      // TODO mover todo esto al servicio correspondiente
       const body = req.body;
 
       const isValidCasaId = await casaService.findById(body.gru_cve_casa);
@@ -37,6 +40,85 @@ router.post('/',
       next(error);
     }
   }
-)
+);
+
+// Entrar el usuario a un grupo
+router.post('/entraUsuario/:cas_cve_casa', 
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(validCasaIDSchema, 'params'),
+  async(req, res, next) => {
+    try {
+      const usuario = req.user.sub;
+      const { cas_cve_casa } = req.params; 
+      // TODO preparar bien los datos
+      const newGrupo = await service.entraUsuario({ usuario, cas_cve_casa });
+      res.status(201).json(newGrupo);
+    } catch(error) {
+      next(error);
+    }
+  }
+);
+
+// Usuario sale de grupo
+router.delete('/saleUsuario/:cas_cve_casa',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(validCasaIDSchema, 'params'),
+  async(req, res, next) => {
+    try {
+      const gru_cve_usuario = req.user.sub;
+      const { cas_cve_casa } = req.params;
+
+      const removeUsuario = await service.removeUsuario({
+        gru_cve_usuario,
+        gru_cve_casa: cas_cve_casa
+      });
+      res.status(200).json(removeUsuario);
+    } catch(error) {
+      next(error);
+    }
+  }
+);
+
+// Admin agrega usuario
+router.post('/agregarUsuario/:usu_cve_usuario',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(validUsuarioIDSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const usuario = req.user.sub;
+      const { usu_cve_usuario } = req.params;
+      
+      const newGrupo = await service.agregarUsuario({
+        usu_cve_usuario: usuario,
+        gru_cve_usuario: usu_cve_usuario
+      });
+
+      res.status(201).json(newGrupo);
+    } catch(error) {
+      next(error);
+    }
+  }
+);
+
+// Admin elimina usuario
+router.delete('/eliminarUsuario/:usu_cve_usuario',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(validUsuarioIDSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const usuario = req.user.sub;
+      const { usu_cve_usuario } = req.params;
+
+      const grupo = await service.eliminarUsuario({
+        usu_cve_usuario: usuario,
+        gru_cve_usuario: usu_cve_usuario
+      });
+
+      res.status(200).json(grupo);
+    } catch(error) {
+      next(error);
+    }
+  }
+);
 
 module.exports = router;

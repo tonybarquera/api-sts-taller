@@ -38,18 +38,11 @@ router.get('/:usu_cve_usuario',
 
 // Crear un nuevo usuario
 router.post('/', 
-  passport.authenticate('jwt', { session: false }),
   validatorHandler(createUsuarioSchema, 'body'),
   async (req, res, next) => {
-    // TODO cifrar password
     try {
       const body = req.body;
-      const data = { 
-        ...body, 
-        usu_admin: false
-      }
-
-      const newUsuario = await service.create(data);
+      const newUsuario = await service.create(body);
       res.status(201).json(newUsuario);
     } catch(error) {
       next(error);

@@ -26,17 +26,12 @@ const UsuarioSchema = {
   usu_telefono: {
     allowNull: false,
     type: DataTypes.STRING
-  },
-  usu_admin: {
-    allowNull: false,
-    defaultValue: 0,
-    type: DataTypes.BOOLEAN
   }
 }
 
 class Usuario extends Model {
   static associate(models) {
-    this.belongsToMany(models.Casa, { through: models.Grupo });
+    // this.belongsToMany(models.Casa, { through: models.Grupo });
   }
 
   static config(sequelize) {

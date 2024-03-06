@@ -17,7 +17,7 @@ const CasaSchema = {
 
 class Casa extends Model {
   static associate(models) {
-    this.belongsToMany(models.Usuario, { through: models.Grupo });
+    // this.belongsToMany(models.Usuario, { through: models.Grupo });
   }
 
   static config(sequelize) {
