@@ -48,10 +48,14 @@ router.post('/entraUsuario/:cas_cve_casa',
   validatorHandler(validCasaIDSchema, 'params'),
   async(req, res, next) => {
     try {
-      const usuario = req.user.sub;
+      const gru_cve_usuario = req.user.sub;
       const { cas_cve_casa } = req.params; 
-      // TODO preparar bien los datos
-      const newGrupo = await service.entraUsuario({ usuario, cas_cve_casa });
+
+      const newGrupo = await service.entraUsuario({ 
+        gru_cve_usuario, 
+        gru_cve_casa: cas_cve_casa 
+      });
+
       res.status(201).json(newGrupo);
     } catch(error) {
       next(error);
@@ -79,7 +83,28 @@ router.delete('/saleUsuario/:cas_cve_casa',
   }
 );
 
-// Admin agrega usuario
+// Admin agrega usuario pro correo
+router.post('/agregarUsuario', 
+  passport.authenticate('jwt', { session: false }),
+  // validatorHandler(),
+  async (req, res, next) => {
+    try {
+      const usu_cve_usuario = req.user.sub;
+      const { usu_correo } = req.body;
+
+      const newGrupo = await service.agregarUsuarioCorreo({
+        usu_correo: usu_correo,
+        usu_cve_usuario: usu_cve_usuario
+      });
+
+      res.status(201).json(newGrupo);
+    } catch(error) {
+      next(error);
+    }
+  }
+);
+
+// Admin agrega usuario por cve
 router.post('/agregarUsuario/:usu_cve_usuario',
   passport.authenticate('jwt', { session: false }),
   validatorHandler(validUsuarioIDSchema, 'params'),
