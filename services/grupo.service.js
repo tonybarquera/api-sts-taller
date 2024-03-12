@@ -8,11 +8,6 @@ class GrupoService {
 
   }
 
-  async create(data) {
-    const newGrupo = await models.Grupo.create(data);
-    return newGrupo;
-  }
-
   async entraUsuario(data) { // data = { gru_cve_usuario, gru_cve_casa }
     let newGrupo;
 
