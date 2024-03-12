@@ -1,6 +1,8 @@
 const bcrypt = require('bcrypt');
+const boom = require('boom');
 
 const { models } = require('./../libs/database.js');
+const sequelize = require('./../libs/database.js');
 
 class UsuarioService {
   constructor() {
@@ -37,6 +39,7 @@ class UsuarioService {
       attributes: [
         'usu_cve_usuario',
         'usu_correo',
+        'usu_username',
         'usu_password'
       ],
       where: {
@@ -84,12 +87,27 @@ class UsuarioService {
     let usuario;
 
     try {
+      // Validar que usuario exista
+      const usuarioExiste = await models.Usuario.findByPk(usu_cve_usuario);
+
+      if(!usuarioExiste) {
+        throw boom.badData('El usuario no existe');
+      }
+
+      // Eliminar registros de grupo del usuario
+      await models.Grupo.destroy({
+        where: {
+          gru_cve_usuario: usu_cve_usuario
+        }
+      });
+    
       usuario = await models.Usuario.destroy({
         where: {
           usu_cve_usuario: usu_cve_usuario
         }
       });
     } catch(error) {
+      console.log(error);
       throw error;
     }
 

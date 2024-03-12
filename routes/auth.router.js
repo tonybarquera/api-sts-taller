@@ -11,9 +11,9 @@ router.post('/login',
     try {
       const usuario = req.user;
 
-      // TODO agregar nombre de usuario al payload
       const payload = {
         sub: usuario.usu_cve_usuario,
+        username: usuario.usu_username
       };
 
       const token = jwt.sign(payload, JWT_SECRET);

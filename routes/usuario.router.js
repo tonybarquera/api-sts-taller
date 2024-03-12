@@ -73,8 +73,6 @@ router.delete('/',
   passport.authenticate('jwt', { session: false }),
   async (req, res, next) => {
     try {
-      // TODO validar que exista usuario
-      // TODO eliminar grupo
       const usu_cve_usuario = req.user.sub;
       const usuario = await service.delete(usu_cve_usuario);
       res.status(200).json(usuario);

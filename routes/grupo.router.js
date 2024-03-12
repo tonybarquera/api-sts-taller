@@ -1,6 +1,5 @@
 const express = require('express');
 const passport = require('passport');
-const boom = require('boom');
 const validatorHandler = require('./../middlewares/validator.handler.js');
 const { validCasaIDSchema } = require('./../schemas/casa.schema.js');
 const { validUsuarioIDSchema } = require('./../schemas/usuario.schema.js');

@@ -44,10 +44,13 @@ class GrupoService {
 
   async removeUsuario(data) {
     let usuario;
-    // TODO Especificar campos del where
+
     try {
       usuario = await models.Grupo.destroy({
-        where: data
+        where: {
+          gru_cve_casa: data.gru_cve_casa,
+          gru_cve_usuario: data.gru_cve_usuario
+        }
       });
     } catch(error) {
       throw error;

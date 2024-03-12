@@ -36,7 +36,7 @@ app.use(boomErrorHandler);
 app.use(ormErrorHandler);
 
 const server = app.listen(PORT, () => {
-  // console.log(`Server in port ${PORT}`);
+  console.log(`Server in port ${PORT}`);
 });
 
 const closeServer = () => {
