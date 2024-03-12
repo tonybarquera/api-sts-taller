@@ -16,11 +16,6 @@ const createUsuarioSchema = Joi.object({
   usu_telefono: usu_telefono.required()
 });
 
-// TODO cambiar findUsuarioById por validUsuarioIDSchema
-const findUsuarioById = Joi.object({
-  usu_cve_usuario: usu_cve_usuario.required()
-});
-
 const validUsuarioIDSchema = Joi.object({
   usu_cve_usuario: usu_cve_usuario.required()
 })
@@ -32,4 +27,4 @@ const updateUsuarioSchema = Joi.object({
   usu_telefono: usu_telefono
 });
 
-module.exports = { createUsuarioSchema, findUsuarioById, validUsuarioIDSchema, updateUsuarioSchema };
+module.exports = { createUsuarioSchema, validUsuarioIDSchema, updateUsuarioSchema };

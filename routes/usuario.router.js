@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const validatorHandler = require('./../middlewares/validator.handler.js');
-const { createUsuarioSchema, findUsuarioById, updateUsuarioSchema } = require('./../schemas/usuario.schema.js');
+const { createUsuarioSchema, validUsuarioIDSchema, updateUsuarioSchema } = require('./../schemas/usuario.schema.js');
 
 const UsuarioService = require('./../services/usuario.service.js');
 
@@ -24,7 +24,7 @@ router.get('/',
 // Obtener usuario por id
 router.get('/:usu_cve_usuario',
   passport.authenticate('jwt', { session: false }),
-  validatorHandler(findUsuarioById, 'params'),
+  validatorHandler(validUsuarioIDSchema, 'params'),
   async(req, res, next) => {
     try {
       const { usu_cve_usuario } = req.params;
