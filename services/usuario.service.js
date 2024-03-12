@@ -58,6 +58,43 @@ class UsuarioService {
 
     return newUsuario;
   }
+
+  async update(usu_cve_usuario, data) {
+    let usuario;
+
+    try {
+      if(data.usu_password) {
+        const hash = await bcrypt.hash(data.usu_password, 8);
+        data.usu_password = hash;
+      }
+  
+      usuario = await models.Usuario.update(data, {
+        where: {
+          usu_cve_usuario: usu_cve_usuario
+        }
+      });
+    } catch(error) {
+      throw error;
+    }
+
+    return usuario;
+  }
+
+  async delete(usu_cve_usuario) {
+    let usuario;
+
+    try {
+      usuario = await models.Usuario.destroy({
+        where: {
+          usu_cve_usuario: usu_cve_usuario
+        }
+      });
+    } catch(error) {
+      throw error;
+    }
+
+    return usuario;
+  }
 }
 
 module.exports = UsuarioService;

@@ -35,6 +35,12 @@ app.use(errorHandler);
 app.use(boomErrorHandler);
 app.use(ormErrorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server in port ${PORT}`);
+const server = app.listen(PORT, () => {
+  // console.log(`Server in port ${PORT}`);
 });
+
+const closeServer = () => {
+  server.close();
+}
+
+module.exports = { appExpress: app, closeServer };

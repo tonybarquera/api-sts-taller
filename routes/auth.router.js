@@ -11,6 +11,7 @@ router.post('/login',
     try {
       const usuario = req.user;
 
+      // TODO agregar nombre de usuario al payload
       const payload = {
         sub: usuario.usu_cve_usuario,
       };

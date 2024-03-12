@@ -1,5 +1,6 @@
 const boom = require('boom');
 const sequelize = require('./../libs/database.js');
+const { QueryTypes } = require('sequelize');
 const { models } = require('./../libs/database.js');
 
 class GrupoService {
@@ -39,11 +40,7 @@ class GrupoService {
         gru_cve_usuario: data.gru_cve_usuario,
         gru_admin: false
       });  
-
-      await transaction.commit();
     } catch(error) {
-      
-      await transaction.rollback();
       throw error;
     }
 
@@ -162,6 +159,29 @@ class GrupoService {
     }
 
     return grupo;
+  }
+
+  async obtenerUsuariosCasa(gru_cve_usuario) {
+    let usuarios;
+
+    try {
+      const usuario = await models.Grupo.findOne({
+        where: {
+          gru_cve_usuario: gru_cve_usuario,
+          gru_admin: true
+        }
+      });
+
+      const sql = `SELECT gru_cve_usuario AS 'usu_cve_usuario', usu_username, usu_correo FROM grupo, usuario WHERE gru_cve_casa = ${usuario.gru_cve_casa} AND gru_admin = false AND gru_cve_usuario = usu_cve_usuario`;
+
+      usuarios = await sequelize.query(sql, {
+        type: QueryTypes.SELECT
+      });
+    } catch(error) {
+      throw error;
+    }
+
+    return usuarios;
   }
 
   // Validaciones

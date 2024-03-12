@@ -25,4 +25,11 @@ const validUsuarioIDSchema = Joi.object({
   usu_cve_usuario: usu_cve_usuario.required()
 })
 
-module.exports = { createUsuarioSchema, findUsuarioById, validUsuarioIDSchema };
+// Actualizar datos
+const updateUsuarioSchema = Joi.object({
+  usu_password: usu_password,
+  usu_username: usu_username,
+  usu_telefono: usu_telefono
+});
+
+module.exports = { createUsuarioSchema, findUsuarioById, validUsuarioIDSchema, updateUsuarioSchema };

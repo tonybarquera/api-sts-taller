@@ -146,4 +146,18 @@ router.delete('/eliminarUsuario/:usu_cve_usuario',
   }
 );
 
+// Admin obtiene todos los usuarios de casa
+router.get('/obtenerUsuariosCasa',
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    try {
+      const gru_cve_usuario = req.user.sub;
+      const usuarios = await service.obtenerUsuariosCasa(gru_cve_usuario);
+      res.status(200).json(usuarios);
+    } catch(error) {
+      next(error);
+    }
+  }
+);
+
 module.exports = router;
