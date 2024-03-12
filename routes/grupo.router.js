@@ -104,27 +104,6 @@ router.post('/agregarUsuario',
   }
 );
 
-// Admin agrega usuario por cve
-router.post('/agregarUsuario/:usu_cve_usuario',
-  passport.authenticate('jwt', { session: false }),
-  validatorHandler(validUsuarioIDSchema, 'params'),
-  async (req, res, next) => {
-    try {
-      const usuario = req.user.sub;
-      const { usu_cve_usuario } = req.params;
-      
-      const newGrupo = await service.agregarUsuario({
-        usu_cve_usuario: usuario,
-        gru_cve_usuario: usu_cve_usuario
-      });
-
-      res.status(201).json(newGrupo);
-    } catch(error) {
-      next(error);
-    }
-  }
-);
-
 // Admin elimina usuario
 router.delete('/eliminarUsuario/:usu_cve_usuario',
   passport.authenticate('jwt', { session: false }),

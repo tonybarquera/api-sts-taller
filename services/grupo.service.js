@@ -65,31 +65,6 @@ class GrupoService {
     return usuario;
   }
 
-  async agregarUsuario(data) {
-    let newGrupo;
-
-    try {
-      // Validar si el usuario es admin
-      const admin = await this.isAdminValidation(data.usu_cve_usuario);
-
-      // Validar el nuevo usuario no este en el grupo
-      await this.notExistsGrupoValidation({
-        gru_cve_casa: admin.gru_cve_casa,
-        gru_cve_usuario: data.gru_cve_usuario
-      });
-      
-      newGrupo = await models.Grupo.create({
-        gru_cve_casa: admin.gru_cve_casa,
-        gru_cve_usuario: data.gru_cve_usuario,
-        gru_admin: false
-      });
-    } catch(error) {
-      throw error;
-    }
-
-    return newGrupo;
-  }
-
   async agregarUsuarioCorreo(data) {
     let newGrupo;
 
