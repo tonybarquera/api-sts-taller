@@ -70,7 +70,6 @@ class GrupoService {
       // Validar que el usuario sea admin
       const admin = await this.isAdminValidation(data.usu_cve_usuario);
       
-      // TODO hacer validation
       // Validar si existe usuario correspondiente al correo
       const existsUsuarioCorreo = await models.Usuario.findOne({
         where: {

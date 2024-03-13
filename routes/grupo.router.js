@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const validatorHandler = require('./../middlewares/validator.handler.js');
 const { validCasaIDSchema } = require('./../schemas/casa.schema.js');
-const { validUsuarioIDSchema } = require('./../schemas/usuario.schema.js');
+const { validUsuarioIDSchema, validCorreo } = require('./../schemas/usuario.schema.js');
 
 const GrupoService = require('./../services/grupo.service.js');
 
@@ -50,10 +50,10 @@ router.delete('/saleUsuario/:cas_cve_casa',
   }
 );
 
-// Admin agrega usuario pro correo
+// Admin agrega usuario por correo
 router.post('/agregarUsuario', 
   passport.authenticate('jwt', { session: false }),
-  // validatorHandler(),
+  validatorHandler(validCorreo, 'body'),
   async (req, res, next) => {
     try {
       const usu_cve_usuario = req.user.sub;

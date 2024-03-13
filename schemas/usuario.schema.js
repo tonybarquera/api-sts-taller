@@ -6,7 +6,6 @@ const usu_correo = Joi.string().min(5).max(60);
 const usu_password = Joi.string().min(8).max(60);
 const usu_username = Joi.string().min(5).max(25);
 const usu_telefono = Joi.string().min(10).max(10);
-const usu_cve_casa = Joi.number().integer();
 
 // Validations
 const createUsuarioSchema = Joi.object({
@@ -18,7 +17,11 @@ const createUsuarioSchema = Joi.object({
 
 const validUsuarioIDSchema = Joi.object({
   usu_cve_usuario: usu_cve_usuario.required()
-})
+});
+
+const validCorreo = Joi.object({
+  usu_correo: usu_correo.required()
+});
 
 // Actualizar datos
 const updateUsuarioSchema = Joi.object({
@@ -27,4 +30,4 @@ const updateUsuarioSchema = Joi.object({
   usu_telefono: usu_telefono
 });
 
-module.exports = { createUsuarioSchema, validUsuarioIDSchema, updateUsuarioSchema };
+module.exports = { createUsuarioSchema, validUsuarioIDSchema, validCorreo, updateUsuarioSchema };
