@@ -14,9 +14,6 @@ function setupModels (sequelize) {
   Categoria.init(CategoriaSchema, Categoria.config(sequelize));
   Unidad.init(UnidadSchema, Unidad.config(sequelize));
   Servicio.init(ServicioSchema, Servicio.config(sequelize));
-
-  Casa.associate(sequelize.models);
-  Usuario.associate(sequelize.models);
 };
 
 module.exports = setupModels

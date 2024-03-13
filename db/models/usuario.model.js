@@ -29,10 +29,6 @@ const UsuarioSchema = {
 }
 
 class Usuario extends Model {
-  static associate(models) {
-    // this.belongsToMany(models.Casa, { through: models.Grupo });
-  }
-
   static config(sequelize) {
     return {
       sequelize,
