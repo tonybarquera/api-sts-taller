@@ -1,5 +1,4 @@
 const { Model, DataTypes } = require('sequelize');
-const { CASA_TABLE } = require('./casa.model.js');
 
 const USUARIO_TABLE = 'usuario';
 
