@@ -6,6 +6,11 @@ const { Grupo, GrupoSchema } = require('./grupo.model.js');
 const { Categoria, CategoriaSchema } = require('./categoria.model.js');
 const { Unidad, UnidadSchema } = require('./unidad.model.js');
 const { Servicio, ServicioSchema } = require('./servicio.model.js');
+const { Producto, ProductoSchema } = require('./producto.model.js');
+const { Despensa, DespensaSchema } = require('./despensa.model.js');
+const { Compra, CompraSchema } = require('./compra.model.js');
+const { Ticket, TicketSchema } = require('./ticket.model.js');
+const { Gasto, GastoSchema } = require('./gasto.model.js');
 
 function setupModels (sequelize) {
   Casa.init(CasaSchema, Casa.config(sequelize));
@@ -14,6 +19,11 @@ function setupModels (sequelize) {
   Categoria.init(CategoriaSchema, Categoria.config(sequelize));
   Unidad.init(UnidadSchema, Unidad.config(sequelize));
   Servicio.init(ServicioSchema, Servicio.config(sequelize));
+  Producto.init(ProductoSchema, Producto.config(sequelize));
+  Despensa.init(DespensaSchema, Despensa.config(sequelize));
+  Compra.init(CompraSchema, Compra.config(sequelize));
+  Ticket.init(TicketSchema, Ticket.config(sequelize));
+  Gasto.init(GastoSchema, Gasto.config(sequelize));
 };
 
 module.exports = setupModels
