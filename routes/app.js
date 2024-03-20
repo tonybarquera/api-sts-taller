@@ -5,6 +5,10 @@ const casaRouter = require('./casa.router.js');
 const usuarioRouter = require('./usuario.router.js');
 const grupoRouter = require('./grupo.router.js');
 const authRouter = require('./auth.router.js');
+const compraRouter = require('./compra.router.js');
+const gastoRouter = require('./gasto.router.js');
+const servicioRouter = require('./servicio.router.js');
+const productoRouter = require('./producto.router.js');
 
 function routerApi(app) {
   const router = express.Router();
@@ -14,6 +18,10 @@ function routerApi(app) {
   router.use('/casa', casaRouter);
   router.use('/usuario', usuarioRouter);
   router.use('/grupo', grupoRouter);
+  router.use('/compra', compraRouter);
+  router.use('/gasto', gastoRouter);
+  router.use('/servicio', servicioRouter);
+  router.use('/producto', productoRouter);
 }
 
 module.exports = routerApi;

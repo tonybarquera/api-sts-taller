@@ -1,4 +1,5 @@
-const casaTony = { cas_cve_casa: 4 };
+const casaTony = { cas_cve_casa: 1 };
+
 const usuarioAlan = { 
   usu_cve_usuario: 2,
   usu_correo: "alan@gmail.com"
@@ -22,8 +23,8 @@ const loginSher = {
 	"usu_password": "123456789"
 }
 
-const tokenTony = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTcwOTU3NDY5Nn0.LRWZ8QkPxFQUNsifqRga5jjFGYSpspZNhfZef6oUua4";
-const tokenAlan = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTcwOTU3NjIwMH0.btxLOAaCbIkhSVnzUomsAkZAg6qjG9wB8YgtTYVr4o0";
+const tokenTony = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInVzZXJuYW1lIjoidG9ueWJhcnF1ZXJhIiwiaWF0IjoxNzEwMzU2ODc1fQ.7GX62x7Cx_yIv0mj73FBS_LpW2FspLRIJiH1J7RJZOs";
+const tokenAlan = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInVzZXJuYW1lIjoiYWxhbmJhc2lsaW8iLCJpYXQiOjE3MTAzNTY5MzZ9.ob3H5V5Nm9DRb19GO66veoQjvDiZspp31nv4FWEI1FI";
 
 module.exports = {
   casaTony,
