@@ -135,6 +135,35 @@ class GastoService {
 
     return result;
   }
+
+  async obtenerGastosCategoria(gru_cve_usuario, categoria) {
+    // TODO obtener casa del usuario
+    const { gru_cve_casa } = await models.Grupo.findOne({
+      attributes: ["gru_cve_casa"],
+      where: {
+        gru_cve_usuario: gru_cve_usuario
+      }
+    });
+
+    if(!gru_cve_casa) {
+      throw boom.badData('El usuario no tiene casa');
+    }
+
+    // 1 -> Compra | 2 -> Servicios | 3 -> Renta
+    let sqlQuery = "";
+
+    if(categoria == 1) {
+      sqlQuery = `SELECT com_cve_compra, pro_nombre, tic_cantidad, CONCAT(tic_contenido_neto, ' ', uni_nombre) AS tic_contenido, com_fecha, tic_precio_unitario, tic_cantidad * tic_precio_unitario AS subtotal FROM gasto, compra, ticket, producto, unidad  WHERE gas_cve_compra = com_cve_compra AND gas_cve_casa = ${gru_cve_casa} AND com_cve_servicio = 6 AND com_cve_compra = tic_cve_compra AND tic_cve_producto = pro_cve_producto AND uni_cve_unidad = tic_cve_unidad;`;
+    } else if(categoria == 2) {
+      sqlQuery = `SELECT com_nombre, com_fecha, com_monto_total, ser_descripcion FROM gasto, compra, servicio WHERE gas_cve_compra = com_cve_compra AND ser_cve_servicio = com_cve_servicio AND gas_cve_casa = ${gru_cve_casa} AND com_cve_servicio != 1 AND com_cve_servicio != 6`;
+    } else {
+      sqlQuery = `SELECT com_nombre, com_fecha, com_monto_total, ser_descripcion FROM gasto, compra, servicio WHERE gas_cve_compra = com_cve_compra AND ser_cve_servicio = com_cve_servicio AND gas_cve_casa = ${gru_cve_casa} AND com_cve_servicio = 1`;
+    }
+
+    const gastos = await sequelize.query(sqlQuery);
+
+    return gastos[0];
+  }
 }
 
 module.exports = GastoService;

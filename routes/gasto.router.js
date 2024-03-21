@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const GastoService = require('./../services/gasto.service');
+const { obtenerGastosCategoria } = require('./../schemas/gasto.schema');
 const { validarId } = require('./../schemas/compra.schema');
 const validatorHandler = require('./../middlewares/validator.handler');
 
@@ -49,6 +50,24 @@ router.delete('/pendientes/:com_cve_compra',
       const { com_cve_compra } = req.params;
 
       const result = await service.eliminarCompraPendiente(gru_cve_usuario, com_cve_compra);
+      res.status(200).json(result);
+    } catch(error) {
+      next(error);
+    }
+  }
+);
+
+// Obtener gastos por categoria
+router.get('',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(obtenerGastosCategoria, 'body'),
+  async (req, res, next) => {
+    try {
+      // 1 -> Compra | 2 -> Servicios | 3 -> Renta
+      const categoria = req.body.categoria;
+      const gru_cve_usuario = req.user.sub;
+
+      const result = await service.obtenerGastosCategoria(gru_cve_usuario, categoria);
       res.status(200).json(result);
     } catch(error) {
       next(error);
