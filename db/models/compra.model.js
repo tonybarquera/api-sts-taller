@@ -17,7 +17,6 @@ const CompraSchema = {
     allowNull: false,
     type: DataTypes.DECIMAL,
     defaultValue: 0.0
-    // TODO revisar doc sequelize -> decimal
   },
   com_fecha: {
     allowNull: false,

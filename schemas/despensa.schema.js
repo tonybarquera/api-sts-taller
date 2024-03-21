@@ -10,5 +10,9 @@ const des_cve_unidad = Joi.number().integer();
 const des_cve_producto = Joi.number().integer();
 
 // Validations
+const eliminarDespensa = Joi.object({
+  des_cve_despensa: des_cve_despensa.required(),
+  des_cantidad: des_cantidad.required()
+});
 
-module.exports = {};
+module.exports = { eliminarDespensa };

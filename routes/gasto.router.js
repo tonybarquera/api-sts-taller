@@ -39,7 +39,7 @@ router.post('/pendientes/:com_cve_compra',
   }
 );
 
-// TODO eliminar gasto pendiente
+// eliminar gasto pendiente
 router.delete('/pendientes/:com_cve_compra',
   passport.authenticate('jwt', { session: false }),
   validatorHandler(validarId, 'params'),
