@@ -6,8 +6,8 @@ const DB_PASSWORD = process.env.DB_PASSWORD || 'root';
 const DB_NAME = process.env.DB_NAME || 'railway'; 
 const DB_PORT = process.env.DB_PORT || 3306;
 const JWT_SECRET = process.env.JWT_SECRET || 'g#uBspyUyFypX334%^56333&6P@Xc8D*ByYc%VzX';
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "1028399955960-eqi5q8gs0ap8uhj69rh65p7o3n2i1m34.apps.googleusercontent.com";
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "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";
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
 module.exports = {
   PORT,
