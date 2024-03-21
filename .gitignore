@@ -133,3 +133,5 @@ dist
 homebytes*.sql
 .env
 /sql
+
+/test
