@@ -18,7 +18,7 @@ class DespensaService {
       throw boom.badData('El usuario no pertenece a una casa');
     }
 
-    const sqlQuery = `SELECT pro_nombre, des_cantidad, CONCAT(des_contenido_neto, ' ', uni_nombre) AS contenido, des_vencimiento, pro_descripcion FROM despensa, producto, unidad WHERE des_cve_casa = ${gru_cve_casa} AND des_cve_producto = pro_cve_producto AND pro_cve_categoria = ${cat_cve_categoria} AND des_cve_unidad = uni_cve_unidad`;
+    const sqlQuery = `SELECT des_cve_despensa, pro_nombre, des_cantidad, CONCAT(des_contenido_neto, ' ', uni_nombre) AS contenido, des_vencimiento, pro_descripcion FROM despensa, producto, unidad WHERE des_cve_casa = ${gru_cve_casa} AND des_cve_producto = pro_cve_producto AND pro_cve_categoria = ${cat_cve_categoria} AND des_cve_unidad = uni_cve_unidad`;
 
     const result = await sequelize.query(sqlQuery);
     return result[0];
