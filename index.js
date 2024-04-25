@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const cors = require('cors');
 const routerApi = require('./routes/app.js');
+const { swaggerDocs: V1ApiDocs } = require('./docs/v1/swagger.js');
 
 const { PORT } = require('./config/config.js');
 const { logErrors, errorHandler, ormErrorHandler, boomErrorHandler } = require('./middlewares/error.handler.js');
@@ -21,7 +22,7 @@ const options = {
   }
 }
 
-app.use(cors(options));
+// app.use(cors(options));
 require('./utils/auth');
 
 app.get('/', (req, res) => {
@@ -38,6 +39,7 @@ app.use(ormErrorHandler);
 
 const server = app.listen(PORT, () => {
   console.log(`Server in port ${PORT}`);
+  V1ApiDocs(app, PORT);
 });
 
 const closeServer = () => {

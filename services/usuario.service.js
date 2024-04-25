@@ -56,6 +56,8 @@ class UsuarioService {
       usu_password: hash
     });
 
+    // TODO validar error del numero de telefono duplicado
+
     delete newUsuario.dataValues.usu_password;
     delete newUsuario.dataValues.usu_telefono;
 

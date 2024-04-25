@@ -1,0 +1,180 @@
+openapi: 3.0.3
+
+info:
+  title: HomeBytes - OpenAPI 3.0
+  description: |-
+    HomeBytes descripción
+    
+    Some useful links:
+    - [HomeBytes API repository](https://github.com/tonybarquera/api-sts-taller)
+  version: 1.0.5
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /api/v1/usuario:
+    post:
+      tags: 
+        - Usuario
+      summary: Crear una cuenta de usuario
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usu_correo:
+                  type: string
+                  example: nombre@dominio.com
+                usu_password:
+                  type: string
+                  example: 33pD,ocT1
+                usu_username:
+                  type: string
+                  example: nombre
+                usu_telefono:
+                  type: string
+                  example: 7721232121
+              required:
+                - usu_correo
+                - usu_password
+                - usu_username
+                - usu_telefono
+        required: true
+      responses:
+        '201':
+          description: Usuario creado
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  usu_cve_usuario:
+                    type: number
+                    example: 10
+                  usu_correo:
+                    type: string
+                    example: nombre@dominio.com
+                  usu_username:
+                    type: string
+                    example: nombre
+    
+    delete:
+      tags: 
+        - Usuario
+      summary: Eliminar mi cuenta de usuario
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Usuario Eliminado
+          content:
+            application/json:
+              schema: 
+                type: number
+                example: 0
+  
+    put:
+      tags: 
+       - Usuario
+      summary: Actualizar Información de usuario
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usu_username:
+                  type: string
+                  example: nombre
+                usu_password: 
+                  type: string
+                  example: 33pD,ocT1
+                usu_telefono:
+                  type: string
+                  example: 7721232121
+      responses:
+        '200':
+          description: Usuario Actualizado
+          content:
+            application/json:
+              schema:
+                type: number
+                example: 1        
+
+    get:
+      tags:
+        - Usuario
+      summary: Obtener usuario de una casa
+      security:
+       - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de Usuarios de casa
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    usu_cve_usuario:
+                      type: number
+                      example: 10
+                    usu_correo: 
+                      type: string
+                      example: nombre@dominio.com
+                    usu_username:
+                      type: string
+                      example: nombre
+
+  /api/v1/auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Iniciar sesión con correo y contraseña
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usu_correo:
+                  type: string
+                  example: nombre@dominio.com
+                usu_password:
+                  type: string
+                  example: 33pD,ocT1
+              required:
+                - usu_correo
+                - usu_password
+      responses:
+        200:
+          description: Autenticación correcta
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  usuario:
+                    type: object
+                    properties:
+                      usu_cve_usuario: 
+                        type: number
+                        example: 10
+                      usu_correo:
+                        type: string
+                        example: nombre@dominio.com
+                      usu_username:
+                        type: string
+                        example: nombre
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e

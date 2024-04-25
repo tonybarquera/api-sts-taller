@@ -1,0 +1,59 @@
+post:
+  tags: 
+    - Usuario
+  summary: Crear una cuenta de usuario
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            usu_correo:
+              type: string
+              example: nombre@dominio.com
+            usu_password:
+              type: string
+              example: 33pD,ocT1
+            usu_username:
+              type: string
+              example: nombre
+            usu_telefono:
+              type: string
+              example: 7721232121
+          required:
+            - usu_correo
+            - usu_password
+            - usu_username
+            - usu_telefono
+    required: true
+  responses:
+    '201':
+      description: Usuario creado
+      content:
+        application/json:
+          schema: 
+            type: object
+            properties:
+              usu_cve_usuario:
+                type: number
+                example: 10
+              usu_correo:
+                type: string
+                example: nombre@dominio.com
+              usu_username:
+                type: string
+                example: nombre
+delete:
+  tags: 
+    - Usuario
+  summary: Eliminar mi cuenta de usuario
+  security:
+    - bearerAuth: []
+  responses:
+    '200':
+      description: Usuario Eliminado
+      content:
+        application/json:
+          schema: 
+            type: number
+            example: 0
