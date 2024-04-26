@@ -3,9 +3,9 @@ openapi: 3.0.3
 info:
   title: HomeBytes - OpenAPI 3.0
   description: |-
-    HomeBytes descripción
+    Documentación API HomeBytes
     
-    Some useful links:
+    Enlaces:
     - [HomeBytes API repository](https://github.com/tonybarquera/api-sts-taller)
   version: 1.0.5
 
@@ -178,3 +178,573 @@ paths:
                   token:
                     type: string
                     example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e
+
+  /api/v1/casa:
+    post:
+      tags:
+        - Casa
+      summary: Crear una casa
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cas_nombre: 
+                  type: string
+                  example: Mi casa
+              required:
+                - cas_nombre
+        required: true
+      responses:
+        '201':
+          description: Casa Creada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cas_cve_casa:
+                    type: number
+                    example: 1
+                  cas_nombre:
+                    type: string
+                    example: Mi casa
+
+  /api/v1/servicio:
+    get:
+      tags:
+        - Servicio
+      summary: Obtener lista de servicios
+      security:
+        - bearerAuth: []
+      responses: 
+        '200': 
+          description: Lista de servicios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ser_cve_servicio:
+                      type: number
+                      example: 1
+                    ser_nombre: 
+                      type: string
+                      example: 'Renta'
+                    ser_descripcion:
+                      type: string
+                      example: 'Pago mensual por servicio de hospedaje'
+                  
+  /api/v1/producto:
+    get:
+      tags:
+        - Producto
+      summary: Obtener lista de productos
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    pro_cve_producto:
+                      type: number
+                      example: 1
+                    pro_nombre:
+                      type: string
+                      example: Arroz
+                    pro_descripcion:
+                      type: string
+                      example: Legumbre
+                    cat_nombre:
+                      type: string
+                      example: Alimento
+  
+  /api/v1/unidad:
+    get:
+      tags:
+        - Unidad
+      summary: Obtener unidades de productos
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de unidades de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uni_cve_unidad:
+                      type: number
+                      example: 1
+                    uni_nombre:
+                      type: string
+                      example: gr
+              
+  /api/v1/categoria:
+    get:
+      tags:
+        - Categoria
+      summary: Obtener lista de categorías
+      security:
+        - bearerAuth: []
+      responses:
+        '200':  
+          description: Lista de categorías de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    cat_cve_categoria:
+                      type: number
+                      example: 1
+                    cat_nombre:
+                      type: string
+                      example: Alimento
+
+  /api/v1/despensa/{cat_cve_categoria}:
+    get:
+      tags:
+        - Despensa
+      summary: Obtener productos de despensa por categoria
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: cat_cve_categoria
+          schema:
+            type: number
+            example: 1
+          required: true
+      responses:
+        '200':  
+          description: Lista de productos en despensa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    des_cve_despensa:
+                      type: number
+                      example: 4
+                    pro_nombre:
+                      type: string
+                      example: Arroz
+                    des_cantidad:
+                      type: number
+                      example: 1
+                    contenido: 
+                      type: string
+                      example: '1 Kg'
+                    des_vencimiento:
+                      type: string
+                      example: '2024-05-19'
+                    pro_descripcion: 
+                      type: string
+                      example: Legumbre
+    
+  /api/v1/despensa:
+    delete:
+      tags:
+        - Despensa
+      summary: Eliminar producto de despensa
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                des_cve_despensa:
+                  type: number
+                  example: 10
+                des_cantidad: 
+                  type: number
+                  example: 1
+              required:
+                - des_cve_despensa
+                - des_cantidad
+      responses:
+        '200':  
+          description: Lista de productos en despensa
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    des_cve_despensa:
+                      type: number
+                      example: 4
+                    pro_nombre:
+                      type: string
+                      example: Arroz
+                    des_cantidad:
+                      type: number
+                      example: 1
+                    contenido: 
+                      type: string
+                      example: '1 Kg'
+                    des_vencimiento:
+                      type: string
+                      example: '2024-05-19'
+                    pro_descripcion: 
+                      type: string
+                      example: Legumbre
+
+  /api/v1/grupo/obtenerUsuariosCasa:
+    get:
+      tags:
+        - Grupo
+      summary: Obtener lista de usuarios de una casa
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de usuario de una casa
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: object
+                  properties:
+                    usu_cve_usuario:
+                      type: number
+                      example: 2
+                    usu_username:
+                      type: string
+                      example: nombre
+                    usu_correo:
+                      type: string
+                      example: nombre@dominio.com
+
+  /api/v1/grupo/agregarUsuario:
+    post:
+      tags: 
+        - Grupo
+      summary: (admin) Agregar usuario a casa por correo
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usu_correo: 
+                  type: string
+                  example: nombre@dominio.com
+              required:
+                - usu_correo
+      responses:
+        '201': 
+          description: Agregar usuario a casa por correo
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gru_cve_casa:
+                    type: number
+                    example: 1
+                  gru_cve_usuario:
+                    type: number
+                    example: 2
+                  gru_admin: 
+                    type: boolean
+                    example: false
+
+  /api/v1/grupo/eliminarUsuario/{usu_cve_usuario}:
+    delete:
+      tags:
+        - Grupo
+      summary: (admin) Elimina usuario de casa
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: usu_cve_usuario
+          schema:
+            type: number
+          required: true
+      responses:
+        '200': 
+          description: Eliminar usuario de casa
+          content:
+            application/json:
+              schema:
+                type: number
+                example: 1
+
+  /api/v1/grupo/entraUsuario/{cas_cve_casa}:
+    post:
+      tags:
+        - Grupo
+      summary: Usuario ingresa a una casa
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: cas_cve_casa
+          schema:
+            type: number
+          required: true
+      responses:
+        '200':
+          description: Usuario ingresa a casa
+          content:
+            application/json:
+              schema:
+                type: number
+                example: 1
+
+  /api/v1/grupo/saleUsuario/{cas_cve_casa}:
+    delete:
+      tags:
+        - Grupo
+      summary: Usuario sale de casa
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: cas_cve_casa
+          schema:
+            type: number
+            example: 1
+          required: true
+      responses:
+        '200': 
+          description: Usuario sale de casa
+          content: 
+            application/json:
+              schema:
+                type: number
+                example: 1
+
+  /api/v1/gasto/{categoria}:
+    get:
+      tags:
+        - Gasto
+      summary: Obtener los gastos de la casa por categoría
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: categoria
+          schema:
+            type: number
+            example: 1
+          required: true
+      responses:
+        '200': 
+          description: Lista de gastos por categoría
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    com_cve_compra:
+                      type: number
+                      example: 22
+                    pro_nombre: 
+                      type: string
+                      example: Arroz
+                    tic_cantidad:
+                      type: number
+                      example: 2
+                    tic_contenido:
+                      type: string
+                      example: 1 Kg
+                    com_fecha:
+                      type: string
+                      example: 2024-03-16
+                    tic_precio_unitario:
+                      type: string
+                      example: 20.50
+                    subtotal:
+                      type: string
+                      example: 41.0
+  
+  /api/v1/gasto/pendientes/{com_cve_compra}:
+    delete:
+      tags:
+        - Gasto
+      summary: Eliminar gasto
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: com_cve_compra
+          schema: 
+            type: number
+            example: 2
+          required: true
+      responses:
+        '200':
+          description: Eliminar gasto
+          content:
+            application/json:
+              schema:
+                type: number
+                example: 1
+
+    post:
+      tags:
+        - Gasto
+      summary: Cambiar estado de com_cve_compra
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: com_cve_compra
+          schema:
+            type: number
+            example: 2
+          required: true
+      responses:
+        '200': 
+          description: Cambiar estado de compra
+          content:  
+            application/json:
+              schema: 
+                type: array
+                items:
+                  type: number
+                  example: 1
+
+  /api/v1/gasto/pendientes:
+    get:
+      tags:
+        - Gasto
+      summary: Obtener gastos pendientes
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Lista de gastos pendientes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    com_cve_compra:
+                      type: number
+                      example: 28
+                    com_nombre:
+                      type: string
+                      example: Pago de Agua Marzo
+                    com_fecha:
+                      type: string
+                      example: 2024-03-19
+                    com_monto_total:
+                      type: string
+                      example: 250.50
+                    com_estado:
+                      type: number
+                      example: 0
+                    ser_descripcion: 
+                      type: string
+                      example: Pago mensual de servicio de Agua
+  
+  /api/v1/compra:
+    post:
+      tags: 
+        - Compra
+      summary: Agregar una nueva compra (servicio)
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                com_nombre:
+                  type: string
+                  example: Pago Gasto
+                com_monto_total: 
+                  type: number
+                  example: 890.00
+                com_fecha:
+                  type: string
+                  example: 2024-03-23
+                com_cve_servicio:
+                  type: number
+                  example: 5
+                ticket:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      tic_cve_producto: 
+                        type: number
+                        example: 1
+                      tic_cantidad:
+                        type: number
+                        example: 2
+                      tic_precio_unitario:
+                        type: number
+                        example: 20.50
+                      tic_contenido_neto:
+                        type: number
+                        example: 1
+                      tic_cve_unidad:
+                        type: number
+                        example: 3
+                      caducidad:
+                        type: string
+                        example: 2024-05-19
+                    required:
+                      - tic_cve_producto
+                      - tic_cantidad
+                      - tic_precio_unitario
+                      - tic_contenido
+                      - tic_cve_unidad
+                      - caducidad
+              required:
+                - com_nombre
+                - com_monto_total
+                - com_fecha
+                - com_cve_servicio
+      responses:
+        '201':
+          description: Compra agregada (servicio)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  gasto:
+                    type: object
+                    properties:
+                      gas_cve_casa: 
+                        type: number
+                        example: 1
+                      gas_cve_compra:
+                        type: number
+                        example: 32

@@ -58,13 +58,13 @@ router.delete('/pendientes/:com_cve_compra',
 );
 
 // Obtener gastos por categoria
-router.get('',
+router.get('/:categoria',
   passport.authenticate('jwt', { session: false }),
-  validatorHandler(obtenerGastosCategoria, 'body'),
+  validatorHandler(obtenerGastosCategoria, 'params'),
   async (req, res, next) => {
     try {
       // 1 -> Compra | 2 -> Servicios | 3 -> Renta
-      const categoria = req.body.categoria;
+      const categoria = req.params.categoria;
       const gru_cve_usuario = req.user.sub;
 
       const result = await service.obtenerGastosCategoria(gru_cve_usuario, categoria);

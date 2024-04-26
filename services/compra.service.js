@@ -39,7 +39,7 @@ class CompraService {
         transaction: transaction
       });
 
-      result = { compra, gasto };
+      result = { gasto };
       await transaction.commit();
     } catch(error) {
       await transaction.rollback();
@@ -112,7 +112,7 @@ class CompraService {
         transaction: transaction
       });
 
-      result = { resultTicket, resultDespensa, resultGasto };
+      result = { gasto: resultGasto };
       await transaction.commit();
     } catch(error) {
       await transaction.rollback();
