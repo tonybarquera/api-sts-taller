@@ -1,34 +1,26 @@
-# api-sts-taller
+# 🏠 Api HomeBytes 
 
-## 🔥 Rutas Funcionales
+## 🔥 Instalación del proyecto
+Clonar el repositorio
+```
+git clone https://github.com/tonybarquera/api-sts-taller.git
+cd api-sts-taller
+```
 
-### 😎 Usuario 
-> [ GET ] /api/v1/usuario 
+Instalar dependencias
+```
+npm install
+```
 
-> [ GET ] /api/v1/usuario/:usu_cve_usuario
+Correr el proyecto
+```
+npm run dev
+```
 
-> **[ POST ]** /api/v1/usuario
-
-> **[ UPDATE ]** /api/v1/usuario
-
-> **[ DELETE ]** /api/v1/usuario
-
-### 🏠 Casa
-> **[ POST ]** /api/v1/casa
-
-### 👨‍👩‍👧‍👦 Grupo
-> **[ GET ]** /api/v1/grupo/obtenerUsuariosCasa
-
-> [ POST ] /api/v1/grupo
-
-> **[ POST ]** /api/v1/grupo/entraUsuario/:cas_cve_casa
-
-> **[ DELETE ]** /api/v1/grupo/saleUsuario/:cas_cve_casa
-
-> [ POST ] /api/v1/grupo/agregarUsuario/:usu_cve_usuario
-
-> **[ POST ]** /api/v1/grupo/agregarUsuario
-
-> **[ DELETE ]** /api/v1/grupo/eliminarUsuario/:usu_cve_usuario
-
-### ❗Pendiente
+## ✨ Este proyecto esta realizado con
+![Static Badge](https://img.shields.io/badge/JavaScript-0?style=flat&logo=JavaScript&color=%23000)
+![Static Badge](https://img.shields.io/badge/NodeJS-0?style=flat&logo=Node.js&color=%23000)
+![Static Badge](https://img.shields.io/badge/Git-0?style=flat&logo=Git&color=%23000)
+![Static Badge](https://img.shields.io/badge/Expres.js-0?style=flat&logo=express&color=%23000)
+![Static Badge](https://img.shields.io/badge/Jest_(testing)-0?style=flat&logo=Jest&color=%23000)
+![Static Badge](https://img.shields.io/badge/Passport.js_(autenticación)-0?style=flat&logo=Passport&color=%23000)
