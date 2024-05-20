@@ -26,7 +26,7 @@ const options = {
 require('./utils/auth');
 
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('Hola Mundo!');
 });
 
 app.use(passport.initialize());
@@ -38,7 +38,7 @@ app.use(boomErrorHandler);
 app.use(ormErrorHandler);
 
 const server = app.listen(PORT, () => {
-  console.log(`Server in port ${PORT}`);
+  console.log(`Server in port http://localhost:${PORT}`);
   V1ApiDocs(app, PORT);
 });
 
