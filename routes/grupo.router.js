@@ -9,7 +9,21 @@ const GrupoService = require('./../services/grupo.service.js');
 const router = express.Router();
 const service = new GrupoService();
 
-// Entrar el usuario a un grupo
+router.get('/tieneCasa', 
+  passport.authenticate('jwt', { session: false }),
+  async(req, res, next) => {
+    try {
+      const gru_cve_usuario = req.user.sub;
+
+      const result = await service.tieneCasa({gru_cve_usuario});
+
+      res.status(200).json(result);
+    } catch(error) {
+      next(error);
+    }
+  }
+);
+
 router.post('/entraUsuario/:cas_cve_casa', 
   passport.authenticate('jwt', { session: false }),
   validatorHandler(validCasaIDSchema, 'params'),

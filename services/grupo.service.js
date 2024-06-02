@@ -8,6 +8,32 @@ class GrupoService {
 
   }
 
+  async tieneCasa(data) { // data = { gru_cve_usuario, gru_cve_casa }
+    let result;
+
+    try {
+      // Validar que usuario no tenga una casa
+      const hasCasa = await models.Grupo.findOne({
+        where: {
+          gru_cve_usuario: data.gru_cve_usuario
+        }
+      });
+
+      const gru_cve_casa = hasCasa.gru_cve_casa;
+
+      const casa = await models.Casa.findOne({
+        where: { cas_cve_casa: gru_cve_casa }
+      });
+
+      console.log(casa);
+      result = casa;
+    } catch(error) {
+      throw error;
+    }
+
+    return result;
+  }
+
   async entraUsuario(data) { // data = { gru_cve_usuario, gru_cve_casa }
     let newGrupo;
 
