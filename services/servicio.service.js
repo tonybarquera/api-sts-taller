@@ -1,6 +1,8 @@
 const boom = require('boom');
 const sequelize = require('./../libs/database.js');
+const { Op } = require("sequelize");
 const { models } = require('./../libs/database.js');
+const { where } = require('sequelize');
 
 class ServicioService {
   constructor() {
@@ -8,7 +10,13 @@ class ServicioService {
   }
 
   async obtenerServicios() {
-    const servicios = await models.Servicio.findAll();
+    const servicios = await models.Servicio.findAll({
+      where: {
+        ser_cve_servicio: {
+          [Op.lt]: 6
+        }
+      }
+    });
     return servicios;
   }
 
