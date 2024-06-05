@@ -180,7 +180,7 @@ class GastoService {
     let sqlQuery = "";
 
     if(categoria == 1) {
-      sqlQuery = `SELECT SUM(com_monto_total) AS 'total' FROM gasto, compra WHERE gas_cve_compra = com_cve_compra AND gas_cve_casa = ${gru_cve_casa} AND com_cve_servicio = 6`;
+      sqlQuery = `SELECT SUM(tic_precio_unitario*tic_cantidad) AS 'total' FROM gasto, compra, ticket WHERE gas_cve_compra = com_cve_compra AND gas_cve_casa = ${gru_cve_casa} AND com_cve_servicio = 6 AND com_cve_compra = tic_cve_compra`;
     } else if(categoria == 2) {
       sqlQuery = `SELECT SUM(com_monto_total) AS 'total' FROM gasto, compra WHERE gas_cve_compra = com_cve_compra AND gas_cve_casa = ${gru_cve_casa} AND com_cve_servicio
       != 6 AND com_cve_servicio != 1`;
