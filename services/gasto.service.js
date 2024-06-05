@@ -137,7 +137,6 @@ class GastoService {
   }
 
   async obtenerGastosCategoria(gru_cve_usuario, categoria) {
-    // TODO obtener casa del usuario
     const { gru_cve_casa } = await models.Grupo.findOne({
       attributes: ["gru_cve_casa"],
       where: {
@@ -163,6 +162,35 @@ class GastoService {
     const gastos = await sequelize.query(sqlQuery);
 
     return gastos[0];
+  }
+
+  async obtenerGastosTotalCategoria(gru_cve_usuario, categoria) {
+    const { gru_cve_casa } = await models.Grupo.findOne({
+      attributes: ["gru_cve_casa"],
+      where: {
+        gru_cve_usuario: gru_cve_usuario
+      }
+    });
+
+    if(!gru_cve_casa) {
+      throw boom.badData('El usuario no tiene casa');
+    }
+
+    // 1 -> Compra | 2 -> Servicios | 3 -> Renta
+    let sqlQuery = "";
+
+    if(categoria == 1) {
+      sqlQuery = `SELECT SUM(com_monto_total) AS 'total' FROM gasto, compra WHERE gas_cve_compra = com_cve_compra AND gas_cve_casa = ${gru_cve_casa} AND com_cve_servicio = 6`;
+    } else if(categoria == 2) {
+      sqlQuery = `SELECT SUM(com_monto_total) AS 'total' FROM gasto, compra WHERE gas_cve_compra = com_cve_compra AND gas_cve_casa = ${gru_cve_casa} AND com_cve_servicio
+      != 6 AND com_cve_servicio != 1`;
+    } else {
+      sqlQuery = `SELECT SUM(com_monto_total) AS 'total' FROM gasto, compra WHERE gas_cve_compra = com_cve_compra AND gas_cve_casa = ${gru_cve_casa} AND com_cve_servicio = 1`;
+    }
+
+    const gastos = await sequelize.query(sqlQuery);
+
+    return gastos[0][0];
   }
 }
 

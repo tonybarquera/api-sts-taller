@@ -75,4 +75,22 @@ router.get('/:categoria',
   }
 );
 
+// Obtener gastos por categoria
+router.get('/total/:categoria',
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(obtenerGastosCategoria, 'params'),
+  async (req, res, next) => {
+    try {
+      // 1 -> Compra | 2 -> Servicios | 3 -> Renta
+      const categoria = req.params.categoria;
+      const gru_cve_usuario = req.user.sub;
+
+      const result = await service.obtenerGastosTotalCategoria(gru_cve_usuario, categoria);
+      res.status(200).json(result);
+    } catch(error) {
+      next(error);
+    }
+  }
+);
+
 module.exports = router;
